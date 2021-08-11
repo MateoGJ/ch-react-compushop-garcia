@@ -13,16 +13,18 @@ class ItemCount extends React.Component {
 
   agregarAlCarrito = () => {
         this.state.onAdd(this.state.inicial);
+        this.setState({inicial: this.props.inicial});
   }
 
   setCantidad = (incrementar = true) => {
+      let agregar = parseInt(this.state.inicial, 0);
       if (incrementar) {
-          if ( this.state.inicial < this.state.stock ) {
-              this.setState( {state: this.state.inicial++});
+          if ( agregar < this.state.stock ) {
+              this.setState( {inicial: agregar + 1});
           }
       } else {
-          if ( this.state.inicial > 0 ) {
-              this.setState( {state: this.state.inicial--});
+          if ( agregar  > 0 ) {
+              this.setState( {inicial: agregar - 1});
           }
       }
   }
@@ -42,12 +44,8 @@ class ItemCount extends React.Component {
                 </div>
             </div>
             <div className="row">
-                <div className="col">
-                </div>
                 <div className="col text-center">
                   <span className="btn btn-primary" onClick={this.agregarAlCarrito}>Agregar al carrito</span>
-                </div>
-                <div className="col">
                 </div>
             </div>
         </div>
