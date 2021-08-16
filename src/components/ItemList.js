@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Item from './Item';
+import ItemDetailContainer from './ItemDetailContainer';
 
 const ItemList = () => {
       const [productos, setProductos] = React.useState([]);
@@ -47,6 +48,7 @@ const ItemList = () => {
       <div className="container">
           <div className="row">
             {productos.map(item => <Item key={item.id} titulo={item.titulo} descripcion={item.descripcion} precio={item.precio} stock={item.stock} />)}
+            <ItemDetailContainer /> 
           </div>
       </div>
     );
