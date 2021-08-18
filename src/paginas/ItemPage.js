@@ -9,7 +9,7 @@ function ItemPage({productos}) {
 
   useEffect(() => {
     getItem(id);
-  }, []);
+  }, [productos]);
 
   const getItem = (itemId) => {
       setProducto(productos.find(item => item.id === itemId));
@@ -18,7 +18,7 @@ function ItemPage({productos}) {
   return (
       <>
           <div className="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-              <h1 className="display-4">{producto.titulo}</h1>
+              <h1 className="display-4">{(producto || {}).titulo}</h1>
           </div>
 
           <div className="container">
