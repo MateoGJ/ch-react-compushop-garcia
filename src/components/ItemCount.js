@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const ItemCount = ({ inicial, stock, onAdd}) => {
-  const [cantidad, setCantidad] = React.useState(inicial);
+  const [cantidad, setCantidad] = useState(inicial);
 
   let _stock = stock;
   let _onAdd = onAdd;

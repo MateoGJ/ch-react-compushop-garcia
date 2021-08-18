@@ -1,36 +1,31 @@
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+
 import CartWidget from './CartWidget';
 
-function NavBar() {
+function NavBar(props) {
+  const [categories] = useState(props.categories);
+
   return (
-      <nav className="navbar navbar-expand-lg navbar-light" style={{backgroundColor: '#e3f2fd'}}>
-          <a className="navbar-brand" href="/#">CompuShop</a>
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-              <div className="navbar-nav justify-content-between">
-                      <a className="nav-link nav-item" href="/#">Home <span className="sr-only">(current)</span></a>
-                  <div className="nav-item nav-item dropdown">
-                      <a className="nav-link nav-item dropdown-toggle" href="/#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Categorias
-                      </a>
-                      <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a className="dropdown-item" href="/#">PC</a>
-                        <a className="dropdown-item" href="/#">Notebook</a>
-                        <div className="dropdown-divider"></div>
-                        <a className="dropdown-item" href="/#">Perifericos</a>
-                      </div>
-                  </div>
-                  <form className="form-inline my-2 my-lg-0">
-                    <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-                    <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                  </form>
-                  <div className="icon">
-                      <CartWidget />
-                  </div>
-              </div>
+      <div className="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+        <h5 className="my-0 mr-md-auto font-weight-normal"><Link to="/" className="text-dark"> CompuShop </Link></h5>
+        <nav className="my-2 my-md-0 mr-md-3">
+          <a className="nav-link dropdown-toggle" href="true" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Categorías
+          </a>
+          <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+            {categories.map(category => 
+                <Link key={category.code} className="dropdown-item" to={`/category/${category.code}`}>{category.label}</Link>
+            )}
           </div>
         </nav>
+        <nav className="my-2 my-md-0 mr-md-3">
+          <Link to="/" className="p-2 text-dark">Inicio </Link>
+          <Link to="/tienda" className="p-2 text-dark">Tienda</Link>
+          <Link to="/categorias" className="p-2 text-dark">Categorias</Link>
+        </nav>
+        <CartWidget />
+      </div>
   );
 }
 
