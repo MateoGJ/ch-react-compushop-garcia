@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import ItemCount from './ItemCount';
+import ItemDetailCantidadAgregada from './ItemDetailCantidadAgregada';
 
 const Item = ({titulo, descripcion, stock, precio, imagen, id}) => {
     const [cantidad, setCantidad] = useState(0);
@@ -20,7 +21,10 @@ const Item = ({titulo, descripcion, stock, precio, imagen, id}) => {
           <h5 className="text-center card-title">{titulo}</h5>
           <p className="card-text">{descripcion}</p>
           <p className="card-text">Precio: $ {precio}</p>
-          <p className="card-text">En carrito: {cantidad}</p>
+                  
+          <div className="card-text">
+             <ItemDetailCantidadAgregada cantidad={cantidad} precio={precio} /> 
+          </div>
           <p className="text-right card-text"><Link to={`/item/${id}`} className="btn btn-outline-secondary">Ver más</Link></p>
           
           <ItemCount stock={stock} inicial="1" onAdd={(_cantidad) => agregarAlCarrito(_cantidad) } />

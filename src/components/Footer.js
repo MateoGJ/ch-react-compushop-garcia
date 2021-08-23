@@ -13,8 +13,8 @@ function Footer ({categories}) {
             <ul className="list-unstyled text-small">
 
               {categories.map(category => 
-                  <li>
-                      <Link key={category.code} className="dropdown-item" to={`/category/${category.code}`}>
+                  <li key={category.code} >
+                      <Link className="dropdown-item" to={`/category/${category.code}`}>
                           {category.label}
                       </Link>
                   </li>
