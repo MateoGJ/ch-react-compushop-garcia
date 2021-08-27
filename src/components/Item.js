@@ -1,33 +1,30 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import ItemCount from './ItemCount';
 import ItemDetailCantidadAgregada from './ItemDetailCantidadAgregada';
 
 const Item = ({titulo, descripcion, stock, precio, imagen, id}) => {
-    const [cantidad, setCantidad] = useState(0);
-
-    const agregarAlCarrito = (_cantidad) => {
-        const cantidadFinal = (parseInt(cantidad, 10) + parseInt(_cantidad, 10));
-        if (stock >= cantidadFinal ) {
-            setCantidad(cantidadFinal);
-        }
-    };
+    const [cantidad] = useState(0);
 
     return (
-      <div className="card col-md-4 mb-4 shadow-sm">
-        <img className="card-img-top" alt="" src={`/images/${imagen}`}/>
-        <div className="card-body">
-          <h5 className="text-center card-title">{titulo}</h5>
-          <p className="card-text">{descripcion}</p>
-          <p className="card-text">Precio: $ {precio}</p>
-                  
-          <div className="card-text">
-             <ItemDetailCantidadAgregada cantidad={cantidad} precio={precio} /> 
-          </div>
-          <p className="text-right card-text"><Link to={`/item/${id}`} className="btn btn-outline-secondary">Ver más</Link></p>
-          
-          <ItemCount stock={stock} inicial="1" onAdd={(_cantidad) => agregarAlCarrito(_cantidad) } />
+      <div className="col-md-4 mb-4 mh-75 pr-2 mt-3" style={{height: 500}}>
+        <div className="card shadow-sm ">
+            <img className="card-img-top" style={{height: 300}} alt="" src={`/images/${imagen}`}/>
+            <div className="card-body">
+              <h5 className="text-center card-title"  style={{minHeight: 75}}>{titulo}</h5>
+              <p className="card-text text-strong">
+                 Precio: <strong> $ {precio} </strong>
+              </p>
+                      
+              <div className="card-text">
+                 <ItemDetailCantidadAgregada cantidad={cantidad} precio={precio} /> 
+              </div>
+              <div className="row">
+                  <div className="col align-self-center">
+                      <p className="text-right card-text"><Link to={`/item/${id}`} className="btn btn-outline-primary">Ver más</Link></p>
+                  </div>
+              </div>
+            </div>
         </div>
       </div>
 
