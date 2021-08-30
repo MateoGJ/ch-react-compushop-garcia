@@ -15,6 +15,14 @@ function CartProvider({ defaultValue = {}, children }) {
         } else {
             items[item.id] = {producto: item, quantity};
         }
+        const _items = {};
+        Object.entries(items).forEach(([key, _item]) => {
+            _items[key] = {
+                producto: _item.producto,
+                quantity: _item.quantity
+            };
+        });
+        setItems(_items);
     }
 
     function removeItem(item) {

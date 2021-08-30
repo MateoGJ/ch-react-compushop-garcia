@@ -34,8 +34,8 @@ function Layout() {
   }, []);
 
   return (
-    <BrowserRouter>
-        <CartProvider>
+    <CartProvider>
+        <BrowserRouter>
             <NavBar categories={categories} />
             <div className="container">
                 <Switch>
@@ -57,8 +57,8 @@ function Layout() {
                 </Switch>
                 <Footer categories={categories}/>
             </div>
-        </CartProvider>
-    </BrowserRouter>
+        </BrowserRouter>
+    </CartProvider>
   );
 }
 
