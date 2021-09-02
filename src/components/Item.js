@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useCart }  from '../contexts/CartContext';
 
 import ItemDetailCantidadAgregada from './ItemDetailCantidadAgregada';
 
 const Item = ({titulo, descripcion, stock, precio, imagen, id}) => {
+    const cart = useCart();
     const [cantidad] = useState(0);
 
     return (
@@ -17,7 +19,7 @@ const Item = ({titulo, descripcion, stock, precio, imagen, id}) => {
               </p>
                       
               <div className="card-text">
-                 <ItemDetailCantidadAgregada cantidad={cantidad} precio={precio} /> 
+                 <ItemDetailCantidadAgregada cantidad={cart.items[id] ? cart.items[id].quantity : 0} precio={precio} /> 
               </div>
               <div className="row">
                   <div className="col align-self-center">

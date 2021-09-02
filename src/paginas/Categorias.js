@@ -1,18 +1,37 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import ItemListContainer from '../components/ItemListContainer';
+import { getFirestore } from '../firebase';
 
 function Categorias ({productos, categorias}) {
     const { id } = useParams();
     const [productosFiltrados, setProductosFiltrados] = useState([]);
     const [categoriaSeleccionada, setCategoriaSeleccionada] = useState('');
 
-    const filtrarPorCategoria = (categoryId) => {
+    const _filtrarPorCategoria = (categoryId) => {
         const categoria =  categorias.filter(item => item.code === categoryId)[0];
         setCategoriaSeleccionada( categoria.label);
         const filtrados =  productos.filter(item => item.categoria === categoryId);
         setProductosFiltrados( filtrados || []);
     };
+
+    const filtrarPorCategoria = (categoryId) => {
+        const db = getFirestore();
+        const itemCollection = db.collection('items');
+        const categoriaCollection = itemCollection.where('categoria', '==', categoryId);
+        categoriaCollection.get().then((querySnapshot) => {
+            if(querySnapshot.size == 0) {
+                console.log('Sin resultados');
+            }
+            setProductosFiltrados(querySnapshot.docs.map(doc => {
+                return { id: doc.id, ...doc.data()}
+            }));
+        }).catch((error) => {
+            console.log('Error', error);
+        }).finally(() => {
+      
+        });
+    }
 
     useEffect(() => {
         return filtrarPorCategoria(id);

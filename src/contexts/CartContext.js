@@ -11,7 +11,7 @@ function CartProvider({ defaultValue = {}, children }) {
 
     function addItem(item, quantity) {
         if(isInCart(item.id)) {
-            items[item.id] = items[item.id].quantity + quantity;
+            items[item.id].quantity = items[item.id].quantity + quantity;
         } else {
             items[item.id] = {producto: item, quantity};
         }

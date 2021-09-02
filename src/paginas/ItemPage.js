@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import ItemDetailContainer from '../components/ItemDetailContainer';
+import { getFirestore } from '../firebase';
 
 function ItemPage({productos}) {
   const { id } = useParams();
@@ -11,9 +12,29 @@ function ItemPage({productos}) {
     getItem(id);
   }, [productos]);
 
-  const getItem = (itemId) => {
+  const _getItem = (itemId) => {
       setProducto(productos.find(item => item.id === itemId));
   };
+
+  const getItem = (itemId) => {
+      const db = getFirestore();
+      const itemCollection = db.collection('items');
+      const item = itemCollection.doc(itemId);
+
+      item.get().then((doc) => {
+          if(!doc.exists) {
+              console.log('El producto no existe');
+              return;
+          }
+          setProducto({ id: doc.id, ...doc.data()} );
+      }).catch((error) => {
+          console.log('Error', error);
+      }).finally(() => {
+    
+      });
+  };
+
+
 
   return (
       <>
